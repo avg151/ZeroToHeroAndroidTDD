@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 class Task002Test {
 
     @get:Rule
-    var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun test_add_id() {
