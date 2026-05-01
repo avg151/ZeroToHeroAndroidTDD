@@ -2,9 +2,10 @@ package ru.easycode.zerotoheroandroidtdd
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ClearViewModel {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -12,5 +13,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (savedInstanceState == null) {
+            navigateToMain()
+        }
+    }
+
+    fun navigateToMain() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, MainFragment())
+            .commit()
+    }
+
+    fun navigateToAdd() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, AddFragment())
+            .commit()
+    }
+
+    override fun clearViewModel(clasz: Class<out ViewModel>) {
+        (application as TaskApp).clear(clasz)
+        navigateToMain()
     }
 }
